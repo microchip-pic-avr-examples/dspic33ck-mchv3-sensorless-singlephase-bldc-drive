@@ -1,6 +1,6 @@
 ![image](images/microchip.jpg) 
 
-## %repoDescritpion%
+## dspic33ck mchv3 sensorless singlephase bldc drive
 
 Board Image if any.
 
