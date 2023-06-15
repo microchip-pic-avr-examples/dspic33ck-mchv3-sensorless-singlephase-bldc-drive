@@ -1,25 +1,15 @@
 ![image](images/microchip.jpg) 
 
-## dspic33ck mchv3 sensorless singlephase bldc drive
-
-Board Image if any.
+## Sensorless Single Phase BLDC Motor Control Solution using dsPIC33CK256MP508
 
 ## Summary
-
-
-## Related Documentation
-
+This document describes the hardware setup requirements to run the firmware code of this solution.
 
 ## Software Used 
-
+MPLAB X IDE v6.00
+XC16 v2.00
 
 ## Hardware Used
-
-
-## Setup
-
-
-## Operation
-
+DSPICDEM™ MCHV3 Development Board (DM3300233)
 
 
