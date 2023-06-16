@@ -29,6 +29,7 @@
 #include "mcc_generated_files/peripheral/sccp1.h"
 #include "mcc_generated_files/uart/uart1.h"
 #include "hmi_uart.h"
+#include "mcc_generated_files/cmp/cmp3.h"
 // </editor-fold>
 
 // <editor-fold defaultstate="collapsed" desc="Kulthorn Declarations">
@@ -71,7 +72,7 @@
 #define SPEED_MOVING_AVG_FILTER_SCALE      4
 #define SPEED_MOVING_AVG_FILTER_SIZE       (uint16_t)(1 << SPEED_MOVING_AVG_FILTER_SCALE) 
 #define PERIOD_CONSTANT  0xFFFFFFFF//(unsigned long)((float)MAXPERIOD *(float)MIN_OL_MOTORSPEED) 
-
+#define OVERCURRENT_COUNTER 10000
 typedef struct {
     uint32_t speedAcc;
     int32_t calculatedSpeed;
@@ -83,6 +84,7 @@ typedef struct {
 } MOVING_AVG_SPEED_T;
 MOVING_AVG_SPEED_T movingAvgSpeed;
 
+uint16_t overcurrentCounter;
 uint16_t potentiometer_data, duty_cycle, va, vb;
 bool StartMotor, RotorLocking, RunMotor, ForcedCommutation;
 uint16_t measuredDutyCycle;
@@ -99,6 +101,7 @@ void SetTimerPeriod(uint32_t value);
 void TimeCapture(void);
 void CalcMovingAvgSpeed(int32_t instCount);
 void InitMovingAvgSpeed(void);
+void OverCurrent(void);
 uint32_t GetTimerBuffer(void);
 // </editor-fold>
 
@@ -459,6 +462,19 @@ void InitMovingAvgSpeed(void)
     movingAvgSpeed.index = 0;
     movingAvgSpeed.sum = 0;
     movingAvgSpeed.avg = 0;
+}
+
+void OverCurrent(void)
+{
+    if (CMP3_StatusGet())
+    {
+        if (overcurrentCounter > OVERCURRENT_COUNTER)
+        {
+            MotorReset();
+            overcurrentCounter = 0;
+        }
+        overcurrentCounter++;
+    }
 }
 
 /* Function:

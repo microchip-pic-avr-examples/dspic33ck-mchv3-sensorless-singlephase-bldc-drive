@@ -37,6 +37,7 @@
 #include "../clock.h"
 #include "../pins.h"
 #include "../../adc/adc1.h"
+#include "../../cmp/cmp3.h"
 #include "../dmt.h"
 #include "../../peripheral/pwm.h"
 #include "../../peripheral/sccp1.h"
@@ -50,6 +51,7 @@ void SYSTEM_Initialize(void)
     CLOCK_Initialize();
     PINS_Initialize();
     ADC1_Initialize();
+    CMP3_Initialize();
     DMT_Initialize();
     PWM_Initialize();
     SCCP1_Initialize();

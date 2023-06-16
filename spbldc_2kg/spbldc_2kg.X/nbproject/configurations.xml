@@ -8,6 +8,10 @@
           <itemPath>mcc_generated_files/adc/adc1.h</itemPath>
           <itemPath>mcc_generated_files/adc/adc_types.h</itemPath>
         </logicalFolder>
+        <logicalFolder displayName="cmp" name="cmp" projectFiles="true">
+          <itemPath>mcc_generated_files/cmp/cmp3.h</itemPath>
+          <itemPath>mcc_generated_files/cmp/cmp_interface.h</itemPath>
+        </logicalFolder>
         <logicalFolder displayName="peripheral" name="peripheral" projectFiles="true">
           <itemPath>mcc_generated_files/peripheral/pwm.h</itemPath>
           <itemPath>mcc_generated_files/peripheral/sccp1.h</itemPath>
@@ -45,6 +49,11 @@
         <logicalFolder displayName="adc" name="adc" projectFiles="true">
           <logicalFolder displayName="src" name="src" projectFiles="true">
             <itemPath>mcc_generated_files/adc/src/adc1.c</itemPath>
+          </logicalFolder>
+        </logicalFolder>
+        <logicalFolder displayName="cmp" name="cmp" projectFiles="true">
+          <logicalFolder displayName="src" name="src" projectFiles="true">
+            <itemPath>mcc_generated_files/cmp/src/cmp3.c</itemPath>
           </logicalFolder>
         </logicalFolder>
         <logicalFolder displayName="peripheral" name="peripheral" projectFiles="true">
