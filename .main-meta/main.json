@@ -4,7 +4,7 @@
    "content":{
       "metaDataVersion":"1.3.0",
       "name":"com.microchip.mplabx.project.dspic33ck-mchv3-sensorless-singlephase-bldc-drive",
-      "version":"x.x.x",
+      "version":"1.0.0",
       "displayName":"dsPIC33CK Sensorless Single Phase Motor Driver",
       "projectName":"dspic33ck-mchv3-sensorless-singlephase-bldc-drive",
       "shortDescription":"Sensorless Single Phase Brushless DC Motor Driver using dsPIC33CK256MP508",
