@@ -43,7 +43,7 @@
 #include "../../pwm/sccp2.h"
 #include "../../uart/uart1.h"
 #include "../interrupt.h"
-#include "../../X2CScope/X2CScope.h"
+#include "../../X2Cscope/X2Cscope.h"
 
 
 void SYSTEM_Initialize(void)

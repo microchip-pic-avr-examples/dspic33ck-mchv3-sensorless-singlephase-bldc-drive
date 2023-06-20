@@ -219,8 +219,8 @@
       </entry>
    </usedClasses>
    <usedLibraries class="java.util.ArrayList">
-      <ILibraryFile class="com.microchip.mcc.core.library.BaseLibraryFile" libraryClass="com.microchip.mcc.melody.Library" version="2.5.0"/>
       <ILibraryFile class="com.microchip.mcc.core.library.BaseLibraryFile" libraryClass="com.microchip.mcc.x2cscope.X2CScopeLibrary" version="2.0.0"/>
+      <ILibraryFile class="com.microchip.mcc.core.library.BaseLibraryFile" libraryClass="com.microchip.mcc.melody.Library" version="2.6.0"/>
    </usedLibraries>
    <tokenMap class="java.util.TreeMap">
       <entry>
@@ -250,12 +250,12 @@
          <hash>c78d82c6a93f94e2ca7ff8d5a00751d4875fe8f76a564bf5ee672dec7b2fcecd</hash>
       </entry>
       <entry>
-         <file>mcc_generated_files\uart\uart1.h</file>
-         <hash>a0bf6a32465c1cd7b8b175ad6143a6ac91643928783934e85fb006e55c6d7313</hash>
-      </entry>
-      <entry>
          <file>mcc_generated_files\X2Cscope\X2CscopeComm.c</file>
          <hash>f05558041e493f2df2f3ff5315082bb4391525e94a2b9de0449af0250b08d474</hash>
+      </entry>
+      <entry>
+         <file>mcc_generated_files\uart\uart1.h</file>
+         <hash>a0bf6a32465c1cd7b8b175ad6143a6ac91643928783934e85fb006e55c6d7313</hash>
       </entry>
       <entry>
          <file>mcc_generated_files\system\interrupt.h</file>
@@ -390,24 +390,24 @@
          <hash>56e6b486f5a9deb1c5e3714a74c2caef1343759fd543cfde169d129a1d8ae249</hash>
       </entry>
       <entry>
-         <file>mcc_generated_files\system\src\config_bits.c</file>
-         <hash>1a9515c7a02d98ed605e32cb5f186d0c13be4745d0b19c2e08b80801b8a38bd8</hash>
-      </entry>
-      <entry>
          <file>mcc_generated_files\X2Cscope\X2Cscope.h</file>
          <hash>cec71c0520b8afd57aa10bb6170b6ba5f35501f34486e8d1f45fa62f8e02b1e9</hash>
+      </entry>
+      <entry>
+         <file>mcc_generated_files\system\src\config_bits.c</file>
+         <hash>1a9515c7a02d98ed605e32cb5f186d0c13be4745d0b19c2e08b80801b8a38bd8</hash>
       </entry>
       <entry>
          <file>mcc_generated_files\system\traps.h</file>
          <hash>641cbe4a0931001cd1802de38fbe15a5dc6761fd77e3acda5561fa430c6b7faf</hash>
       </entry>
       <entry>
-         <file>mcc_generated_files\system\system_types.h</file>
-         <hash>516f383ecaa24baa7fcc0787fb7897e48562adbaf8b80ce159de37ff831b1287</hash>
-      </entry>
-      <entry>
          <file>mcc_generated_files\X2Cscope\X2Cscope.c</file>
          <hash>39fdd3de98e1070b5d07621f490757d66ca580f5ade9ecf4c852ea7a71ccdee4</hash>
+      </entry>
+      <entry>
+         <file>mcc_generated_files\system\system_types.h</file>
+         <hash>516f383ecaa24baa7fcc0787fb7897e48562adbaf8b80ce159de37ff831b1287</hash>
       </entry>
       <entry>
          <file>mcc_generated_files\system\src\system.c</file>
