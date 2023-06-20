@@ -54,7 +54,7 @@
 // *****************************************************************************
 #include "button_service.h"
 #include"mcc_generated_files/system/pins.h"
-#define S1_MCHV3    !S1_MCHV3_GetValue()
+
 BUTTON_T buttonStartStop;
 //#ifdef MCLV2
 BUTTON_T buttonFwdRev;
@@ -102,7 +102,7 @@ void BoardService(void) {
 #endif
 
         /* Button scanning loop for Button 1 to start Motor  */
-        ButtonScan(&buttonStartStop, !Button_S2_MCLV_GetValue());
+        ButtonScan(&buttonStartStop, !S1_MCHV3_GetValue()); //!Button_S2_MCLV_GetValue()
         /* Button scanning loop for SW2 to change direction */
         ButtonScan(&buttonFwdRev, !Button_S3_MCLV_GetValue());
 

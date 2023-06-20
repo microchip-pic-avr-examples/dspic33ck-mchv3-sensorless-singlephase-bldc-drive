@@ -41,7 +41,7 @@
 #include <xc.h>
 #include <stddef.h>
 #include "../uart1.h"
-#include "../../../hmi_uart.h"
+
 // Section: Macro Definitions
 #define UART1_CLOCK 100000000U
 #define UART1_BAUD_TO_BRG_WITH_FRACTIONAL(x) (UART1_CLOCK/(x))
@@ -97,16 +97,10 @@ static union
     size_t status;
 } uartError;
 
-
-
-
 // Section: UART1 APIs
 
 void UART1_Initialize(void)
 {
-    IEC0bits.U1TXIE = 0;
-    IEC0bits.U1RXIE = 0;
-    
 /*    
      Set the UART1 module to the options selected in the user interface.
      Make sure to set LAT bit corresponding to TxPin as high before UART initialization
@@ -118,127 +112,15 @@ void UART1_Initialize(void)
     // OERIE ; RXBKIF ; RXBKIE ; ABDOVF ; OERR ; TXCIE ; TXCIF ; FERIE ; TXMTIE ; ABDOVE ; CERIE ; CERIF ; PERIE ; 
     U1STA = 0x80;
     // URXISEL ; UTXBE ; UTXISEL ; URXBE ; STPMD ; TXWRE ; 
-        U1STAH = 0x2E;
+    U1STAH = 0x2E;
     // BaudRate 115207.37; Frequency 100000000 Hz; BRG 868; 
     U1BRG = 0x364;
     // BRG 0; 
     U1BRGH = 0x0;
     
-    txHead = txQueue;
-    txTail = txQueue;
-    rxHead = rxQueue;
-    rxTail = rxQueue;
-   
-    rxOverflowed = false;
-    
-//    UART1_SetTxInterruptHandler(&UART1_Transmit_CallBack);
-
-//    UART1_SetRxInterruptHandler(&UART1_Receive_CallBack);
-    
-    IEC0bits.U1RXIE = 1; 
-    IEC0bits.U1TXIE = 1;
     U1MODEbits.UARTEN = 1;   // enabling UART ON bit
     U1MODEbits.UTXEN = 1;
     U1MODEbits.URXEN = 1;
-}
-
-
-uint8_t UART1_Read( void)
-{
-    uint8_t data = 0;
-
-    while (rxHead == rxTail )
-    {
-    }
-    
-    data = *rxHead;
-
-    rxHead++;
-
-    if (rxHead == (rxQueue + UART1_CONFIG_RX_BYTEQ_LENGTH))
-    {
-        rxHead = rxQueue;
-    }
-    return data;
-}
-
-
-void UART1_Write( uint8_t byte)
-{
-    while(UART1_IsTxReady() == 0)
-    {
-    }
-
-    *txTail = byte;
-
-    txTail++;
-    
-    if (txTail == (txQueue + UART1_CONFIG_TX_BYTEQ_LENGTH))
-    {
-        txTail = txQueue;
-    }
-
-    IEC0bits.U1TXIE = 1;
-}
-
-
-void __attribute__ ( ( interrupt, no_auto_psv ) ) _U1TXInterrupt ( void )
-{
-
-    if(txHead == txTail)
-    {
-        IEC0bits.U1TXIE = 0;
-    }
-    else
-    {
-        IFS0bits.U1TXIF = 0;
-        
-
-        while(!(U1STAHbits.UTXBF == 1))
-        {
-            U1TXREG = *txHead++;
-
-            if(txHead == (txQueue + UART1_CONFIG_TX_BYTEQ_LENGTH))
-            {
-                txHead = txQueue;
-            }
-
-//             Are we empty?
-            if(txHead == txTail)
-            {
-                break;
-            }
-        }
-    }
-}
-
-void __attribute__ ( ( interrupt, no_auto_psv ) ) _U1RXInterrupt( void )
-{
-    
-    IFS0bits.U1RXIF = 0;
-
-    while(!(U1STAHbits.URXBE == 1))
-    {
-        *rxTail = U1RXREG;
-
-        // Will the increment not result in a wrap and not result in a pure collision?
-        // This is most often condition so check first
-        if ( ( rxTail    != (rxQueue + UART1_CONFIG_RX_BYTEQ_LENGTH-1)) &&
-             ((rxTail+1) != rxHead) )
-        {
-            rxTail++;
-        } 
-        else if ( (rxTail == (rxQueue + UART1_CONFIG_RX_BYTEQ_LENGTH-1)) &&
-                  (rxHead !=  rxQueue) )
-        {
-            // Pure wrap no collision
-            rxTail = rxQueue;
-        } 
-        else // must be collision
-        {
-            rxOverflowed = true;
-        }
-    }
 }
 
 void UART1_Deinitialize(void)
@@ -251,31 +133,30 @@ void UART1_Deinitialize(void)
     U1BRGH = 0x0;
 }
 
-//
-//void UART1_Write(uint8_t txData)
-//{
-//    while(U1STAHbits.UTXBF == 1)
-//    {
-//        
-//    }
-//
-//    U1TXREG = txData;    // Write the data byte to the USART.
-//}
-//
-//uint8_t UART1_Read(void)
-//{
-//    while((U1STAHbits.URXBE == 1))
-//    {
-//        
-//    }
-//
-//    if ((U1STAbits.OERR == 1))
-//    {
-//        U1STAbits.OERR = 0;
-//    }
-//    
-//    return U1RXREG;
-//}
+uint8_t UART1_Read(void)
+{
+    while((U1STAHbits.URXBE == 1))
+    {
+        
+    }
+
+    if ((U1STAbits.OERR == 1))
+    {
+        U1STAbits.OERR = 0;
+    }
+    
+    return U1RXREG;
+}
+
+void UART1_Write(uint8_t txData)
+{
+    while(U1STAHbits.UTXBF == 1)
+    {
+        
+    }
+
+    U1TXREG = txData;    // Write the data byte to the USART.
+}
 
 bool UART1_IsRxReady(void)
 {

@@ -1,16 +1,19 @@
 /**
- * MAIN Generated Driver Header File
+ * PWM Generated Driver Types Header File
  * 
- * @file      system.c
- *            
- * @ingroup   systemdriver
- *            
- * @brief     This is the generated driver header file for the System driver
- *            
- * @version   Driver Version 1.0.1
- *            
+ * @file 	  pwm_types.h
+ * 
+ * @ingroup   pwmdriver
+ * 
+ * @brief 	  This is the generated driver types header file for the PWM driver
+ *
+ * @skipline @version   Firmware Driver Version 2.1.1
+ *
+ * @skipline @version   PLIB Version 1.6.0
+ *
  * @skipline  Device : dsPIC33CK256MP508
 */
+
 /*
 © [2023] Microchip Technology Inc. and its subsidiaries.
 
@@ -32,35 +35,32 @@
     THIS SOFTWARE.
 */
 
-#include "../system.h"
-#include "../system_types.h"
-#include "../clock.h"
-#include "../pins.h"
-#include "../../adc/adc1.h"
-#include "../dmt.h"
-#include "../../peripheral/pwm.h"
-#include "../../peripheral/sccp1.h"
-#include "../../pwm/sccp2.h"
-#include "../../uart/uart1.h"
-#include "../interrupt.h"
-#include "../../X2CScope/X2CScope.h"
+#ifndef PWM_TYPES_H
+#define PWM_TYPES_H
 
+// Section: Included Files
 
-void SYSTEM_Initialize(void)
+// Section: Enum Declarations
+
+/**
+ @ingroup  pwmdriver
+ @enum 	   PWM_OUTPUT_MODES
+ @brief	   Enumeration containing the output modes of PWM driver
+*/
+ 
+enum PWM_OUTPUT_MODES
 {
-    CLOCK_Initialize();
-    PINS_Initialize();
-    ADC1_Initialize();
-    DMT_Initialize();
-    PWM_Initialize();
-    SCCP1_Initialize();
-    SCCP2_PWM_Initialize();
-    UART1_Initialize();
-    INTERRUPT_GlobalEnable();
-    INTERRUPT_Initialize();
-    X2Cscope_Init();
-}
 
+    OUTPUT_SCAN_MODE  = 0x6, /**<Output Scan Mode*/
+    BRUSH_DC_OUTPUT_FORWARD  = 0x5, /**<Brush DC Output Forward Mode*/
+    BRUSH_DC_OUTPUT_REVERSE  = 0x4, /**<Brush DC Output Reverse Mode*/
+    HALF_BRIDGE_OUTPUT  = 0x2, /**<Half Bridge Output Mode*/
+    PUSH_PULL_OUTPUT  = 0x1, /**<Push Pull Output Mode*/
+    STEERABLE_SINGLE_OUTPUT  = 0x0, /**<Steerable Single Output Mode*/
+
+};
+
+#endif  //PWM_TYPES_H
 /**
  End of File
 */

@@ -1,4 +1,3 @@
-// <editor-fold defaultstate="collapsed" desc="© [2023] Microchip Technology Inc. and its subsidiaries.">
 /*
 © [2023] Microchip Technology Inc. and its subsidiaries.
 
@@ -18,24 +17,22 @@
     TOTAL LIABILITY ON ALL CLAIMS RELATED TO THE SOFTWARE WILL NOT 
     EXCEED AMOUNT OF FEES, IF ANY, YOU PAID DIRECTLY TO MICROCHIP FOR 
     THIS SOFTWARE.
- */
-// </editor-fold>
+*/
 
-// <editor-fold defaultstate="collapsed" desc="Includes">
 #include "mcc_generated_files/system/system.h"
 #include "mcc_generated_files/X2Cscope/X2Cscope.h"
 #include "button_service.h"
 #include "mcc_generated_files/peripheral/../system/pins.h"
 #include "mcc_generated_files/peripheral/sccp1.h"
-#include "mcc_generated_files/uart/uart1.h"
-#include "hmi_uart.h"
-#include "mcc_generated_files/cmp/cmp3.h"
-// </editor-fold>
-
-// <editor-fold defaultstate="collapsed" desc="Kulthorn Declarations">
 
 // *****************************************************************************
-/** Motor Ratings (from Name Plate Details or Datasheet)*/
+/** MOTOR PARAMETERS*/
+// ***************************************************************************** 
+#define POLEPAIRS           2
+#define POLES               4
+
+// *****************************************************************************
+/** MOTOR USER INTERFACE */
 // ***************************************************************************** 
 /* MCLV2 - RE8 - PIM#60 - DBG_LED1 - D2  */
 /* MCHV3 - RE8 - PIM#60 - DBG_LED2 - D17 */
@@ -43,36 +40,35 @@
 #define MOTOR_STOPPED_LIGHT_INDICATOR   LED1_SetLow()
 
 // *****************************************************************************
-/** ADC RELATED */
+/** ADC CONSTANTS AND DEFINES*/
 // ***************************************************************************** 
 #define ADC_POTENTIOMETER               ADCBUF19
-#define MAX_DUTY_CYCLE                  (MPER-1)
+#define MAX_DUTY_CYCLE                  (MPER*0.2)
 #define DUTY_CYCLE_SENSITIVITY          MAX_DUTY_CYCLE - (int32_t)((__builtin_mulss(potentiometer_data,MAX_DUTY_CYCLE)>>12))
 #define ADC_VA  ADCBUF20
 #define ADC_VB  ADCBUF21
 
 // *****************************************************************************
-/** PWM RELATED */
+/** PWM SEQUENCE */
 // ***************************************************************************** 
-#define OVERRIDE_PWM_TO_DISABLE_OUTPUT  0x3000
-#define SET_DUTYCYCLE_TO_ZERO           0x0000
+const uint16_t PWM_STATE1[2] = {0x3400, 0x0000};
+const uint16_t PWM_STATE2[2] = {0x0000, 0x3400};
+
 // *****************************************************************************
-/** SPEED CALCULATION RELATED */
+/** SPEED CALCULATION */
 // ***************************************************************************** 
-#define FCY                     100000000UL
-#define TIMER_PRESCALER     64
-#define MIN_OL_MOTORSPEED   300    // Specify the min openloop speed in rpm of motor
-#define POLEPAIRS           2
-#define POLES               4
-#define MAXPERIOD	(unsigned long)(((float)FCY / (float)TIMER_PRESCALER) / (float)((MIN_OL_MOTORSPEED * POLEPAIRS)/10))	
-#define SPEED_MULTI     (unsigned long)(((float)FCY/(float)(TIMER_PRESCALER*POLES))*(float)60) 
-#define PWMTICKS            (float)0.00005
-#define FREQHZ              (float)(TIMER_PRESCALER*2)/FCY
-#define PERIODPERPULSE      (float)FREQHZ/PWMTICKS
-#define SPEED_MOVING_AVG_FILTER_SCALE      4
-#define SPEED_MOVING_AVG_FILTER_SIZE       (uint16_t)(1 << SPEED_MOVING_AVG_FILTER_SCALE) 
-#define PERIOD_CONSTANT  0xFFFFFFFF//(unsigned long)((float)MAXPERIOD *(float)MIN_OL_MOTORSPEED) 
-#define OVERCURRENT_COUNTER 10000
+#define FCY                             100000000UL
+#define TIMER_PRESCALER                 64  
+#define SPEED_MOVING_AVG_FILTER_SCALE   4
+#define SPEED_MOVING_AVG_FILTER_SIZE    (uint16_t)(1 << SPEED_MOVING_AVG_FILTER_SCALE) 
+#define MIN_OL_MOTORSPEED               300
+#define MAXPERIOD                       (unsigned long)(((float)FCY / (float)TIMER_PRESCALER) / (float)((MIN_OL_MOTORSPEED * POLEPAIRS)/10))	
+#define SPEED_MULTI                     (unsigned long)(((float)FCY/(float)(TIMER_PRESCALER*POLES))*(float)60) 
+#define PWMTICKS                        (float)0.00005
+#define FREQHZ                          (float)(TIMER_PRESCALER*2)/FCY
+#define PERIODPERPULSE                  (float)FREQHZ/PWMTICKS
+#define PERIOD_CONSTANT                 0xFFFFFFFF//(unsigned long)((float)MAXPERIOD *(float)MIN_OL_MOTORSPEED) 
+
 typedef struct {
     uint32_t speedAcc;
     int32_t calculatedSpeed;
@@ -84,13 +80,17 @@ typedef struct {
 } MOVING_AVG_SPEED_T;
 MOVING_AVG_SPEED_T movingAvgSpeed;
 
-uint16_t overcurrentCounter;
-uint16_t potentiometer_data, duty_cycle, va, vb;
+// State Machine Procedures
 bool StartMotor, RotorLocking, RunMotor, ForcedCommutation;
+// ADC data
+uint16_t potentiometer_data, duty_cycle, va, vb;
+// PWM duty cycle output measurement
 uint16_t measuredDutyCycle;
-uint16_t inc, PWMticks, PWMticks_limit, commutationValue;
-uint32_t pastTimerValue,timerValueDelta,measuredTicks,measuredSpeed, timerValue = 0;
-int16_t desiredTicks[150];
+// PWM cycles, limit of PWM cycles, commutation sequence
+uint16_t PWMticks, PWMticks_limit, commutationValue;
+// Speed measurement parameters and output speed monitoring
+uint32_t pastTimerValue,timerValueDelta,measuredTicks, timerValue, measuredSpeed;
+
 void MotorInitialize(void);
 void MotorReset(void);
 void InitialParameters(void);
@@ -101,23 +101,20 @@ void SetTimerPeriod(uint32_t value);
 void TimeCapture(void);
 void CalcMovingAvgSpeed(int32_t instCount);
 void InitMovingAvgSpeed(void);
-void OverCurrent(void);
 uint32_t GetTimerBuffer(void);
-// </editor-fold>
 
-// <editor-fold defaultstate="collapsed" desc="HMI Declarations">
-static uint16_t UARTValue;
-static uint16_t UART_L;
-static uint16_t UART_H;
-static uint16_t UARTSpeedV;
-// </editor-fold>
 
-// <editor-fold defaultstate="collapsed" desc="Main Code">
+
+/*
+    Main application
+*/
+
 int main(void)
 {
     SYSTEM_Initialize();
     InitialParameters();
     BoardServiceInit();
+    SetTimerPeriod(PERIOD_CONSTANT);
     
     while(1)
     {
@@ -138,10 +135,6 @@ int main(void)
     }    
 }
 
-// </editor-fold>
-
-// <editor-fold defaultstate="collapsed" desc="Kulthorn Firmware Code Functions">
-
 /* Function:
     MotorInitialize()
   Summary:
@@ -157,17 +150,13 @@ int main(void)
   Remarks:
     None.
  */
+
 void MotorInitialize()
 {
     MOTOR_STARTED_LIGHT_INDICATOR;
     StartMotor = true;
     RotorLocking = true;
     ForcedCommutation = false;
-    
-    for(inc = 0; inc < 150; inc++)
-    {
-        desiredTicks[inc] = MPER*(0.1*(inc));
-    }
 }
 
 /* Function:
@@ -197,7 +186,7 @@ void MotorReset()
   Summary:
     This routine sets the assigned value to the SCCP1 Period register
   Description:
-    Includes Rotor Locking and Forced Commutation procedures
+    None.
   Precondition:
     None.
   Parameters:
@@ -219,7 +208,7 @@ void SetTimerPeriod(uint32_t value)
   Summary:
     This routine returns the value of the SCCP1 timer buffer register
   Description:
-    Includes Rotor Locking and Forced Commutation procedures
+    None.
   Precondition:
     None.
   Parameters:
@@ -242,7 +231,7 @@ uint32_t GetTimerBuffer(void)
   Summary:
     This interrupt is called every PWM cycle (50us) to change the PWM control over the motor
   Description:
-    Includes Rotor Locking and Forced Commutation procedures
+    None
   Precondition:
     None.
   Parameters:
@@ -256,17 +245,22 @@ uint32_t GetTimerBuffer(void)
 void InitialParameters()
 {
     /* Disable PWM */ 
-    PG1IOCONL = PG2IOCONL = OVERRIDE_PWM_TO_DISABLE_OUTPUT;       
-    PG1DC = PG2DC = SET_DUTYCYCLE_TO_ZERO;
-    
+    PG1IOCONL = 0x3000;
+    PG2IOCONL = 0x3000;
+    PG1DC = PG2DC = 0x0000;
+
     /* Reset Motor parameters*/
-    StartMotor = false;                     //StartMotor tells if motor control procedure has started
-    RotorLocking = false;                   //Rotor Locking runs the motor to realign the rotor
-    RunMotor = false;                       //RunMotor tells if motor has started moving
-    ForcedCommutation = false;              //Forced Commutation is the sensorless control to drive the motor
-    measuredDutyCycle = SET_DUTYCYCLE_TO_ZERO;//Initializes duty cycle
-    PWMticks = 0;                           //PWM ticks increments up to the period of half an electrical cycle
-    SetTimerPeriod(PERIOD_CONSTANT);        //Sets the SCCP1 timer period
+    StartMotor = false;
+    RotorLocking = false;
+    RunMotor = false;
+    ForcedCommutation = false;
+    measuredDutyCycle = 0;
+    PWMticks = 0;  
+    pastTimerValue = 0;
+    timerValueDelta = 0;
+    measuredTicks = 0;
+    timerValue = 0;
+    measuredSpeed = 0;
 }
 
 /* Interrupt:
@@ -294,39 +288,40 @@ void __attribute__ ( ( __interrupt__ , auto_psv) ) _ADCAN19Interrupt ( void )
     /* Motor Phase 1 and 2 Back EMF reading from ADC */
     va = ADC_VA;
     vb = ADC_VB;
+    
     /* Motor Procedure during ADC Interrupt */
     if(StartMotor)
     {
         if(RotorLocking)
         {
-            if(PWMticks < 0x1388) //40,000 ticks = 2 seconds of rotor locking
+            if(PWMticks < 0x1388) //5,000 ticks 
             {
                 PWMticks++;
-                measuredDutyCycle = MPER-1;
+                measuredDutyCycle = MPER*0.04;
                 PG1DC = PG2DC = measuredDutyCycle;
                 PG1IOCONL = 0x3400;
                 PG2IOCONL = 0x0000;
             }
-            else if(PWMticks < 0x2710) //40,000 ticks = 2 seconds of rotor locking
+            else if(PWMticks < 0x2710) //10,000 ticks 
             {
                 PWMticks++;
-                measuredDutyCycle = MPER-1;
+                measuredDutyCycle = MPER*0.06;
                 PG1DC = PG2DC = measuredDutyCycle;
                 PG2IOCONL = 0x3400;
                 PG1IOCONL = 0x0000;
             }
-            else if(PWMticks < 0x3A98) //40,000 ticks = 2 seconds of rotor locking
+            else if(PWMticks < 0x3A98) //15,000 ticks
             {
                 PWMticks++;
-                measuredDutyCycle = MPER-1;
+                measuredDutyCycle = MPER*0.08;
                 PG1DC = PG2DC = measuredDutyCycle;
                 PG1IOCONL = 0x3400;
                 PG2IOCONL = 0x0000;
             }
-            else if(PWMticks < 0x4E20) //40,000 ticks = 2 seconds of rotor locking
+            else if(PWMticks < 0x4E20) //20,000 ticks 
             {
                 PWMticks++;
-                measuredDutyCycle = MPER-1;
+                measuredDutyCycle = MPER*0.1;
                 PG1DC = PG2DC = measuredDutyCycle;
                 PG2IOCONL = 0x3400;
                 PG1IOCONL = 0x0000;
@@ -340,7 +335,6 @@ void __attribute__ ( ( __interrupt__ , auto_psv) ) _ADCAN19Interrupt ( void )
                 PWMticks_limit = 3000;
                 commutationValue = 0;
             }
-            
         }
         
         if(RunMotor)
@@ -356,7 +350,7 @@ void __attribute__ ( ( __interrupt__ , auto_psv) ) _ADCAN19Interrupt ( void )
                         if (PWMticks_limit > 1000)
                         {
                             PWMticks_limit -= 200;
-                            measuredDutyCycle = MPER-1;
+                            measuredDutyCycle = MPER*0.12;
                         }
                     }
                 }
@@ -464,19 +458,6 @@ void InitMovingAvgSpeed(void)
     movingAvgSpeed.avg = 0;
 }
 
-void OverCurrent(void)
-{
-    if (CMP3_StatusGet())
-    {
-        if (overcurrentCounter > OVERCURRENT_COUNTER)
-        {
-            MotorReset();
-            overcurrentCounter = 0;
-        }
-        overcurrentCounter++;
-    }
-}
-
 /* Function:
     CalcMovingAvgSpeed()
   Summary:
@@ -512,13 +493,4 @@ void CalcMovingAvgSpeed(int32_t instCount)
         movingAvgSpeed.avg = movingAvgSpeed.sum >> SPEED_MOVING_AVG_FILTER_SCALE;
     }
     measuredSpeed = movingAvgSpeed.avg;
-
-    UARTSpeedV = (measuredSpeed << 2);
-    UARTSpeedV = (UARTSpeedV >> 1);
-    UART_H = (UARTSpeedV >> 8) & 0xFF;
-    UART_L = (UARTSpeedV & 0xFF) | 0x80;
-    
-    UART1_Write (UART_L);
-    UART1_Write (UART_H);
 }
-// </editor-fold>

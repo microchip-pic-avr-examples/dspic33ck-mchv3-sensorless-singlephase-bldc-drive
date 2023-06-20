@@ -118,8 +118,8 @@ void ADC1_Initialize (void)
     ADCON1H = 0x60;
     // SHRADCS 2; SHREISEL Early interrupt is generated 1 TADCORE clock prior to data being ready; PTGEN disabled; EIEN disabled; REFERCIE disabled; REFCIE disabled; 
     ADCON2L = 0x0;
-    // SHRSAMC 0; 
-    ADCON2H = 0x0;
+    // SHRSAMC 15; 
+    ADCON2H = 0x0F;
     // CNVCHSEL AN0; SWCTRG disabled; SWLCTRG disabled; SHRSAMP disabled; SUSPCIE disabled; SUSPEND disabled; REFSEL disabled; 
     ADCON3L = 0x0;
     // C0EN disabled; C1EN disabled; SHREN enabled; CLKDIV 1; CLKSEL FOSC/2; 
@@ -221,7 +221,7 @@ void ADC1_Initialize (void)
     // EISTAT16 disabled; EISTAT17 disabled; EISTAT18 disabled; EISTAT19 disabled; EISTAT20 disabled; EISTAT21 disabled; EISTAT22 disabled; EISTAT23 disabled; EISTAT24 disabled; EISTAT25 disabled; 
     ADEISTATH = 0x0;
     // C0CIE disabled; C1CIE disabled; SHRCIE disabled; WARMTIME 16 Source Clock Periods; 
-    ADCON5H = (uint16_t)0x400 & (uint16_t)0xF0FF; //Disabling WARMTIME bit
+    ADCON5H = (0xF00 & 0xF0FF); //Disabling WARMTIME bit
     // 
     ADCBUF0 = 0x0;
     // 

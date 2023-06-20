@@ -45,29 +45,6 @@
 #include <stddef.h>
 #include "uart_interface.h"
 
-
-
-static uint8_t * volatile rxTail;
-static uint8_t *rxHead;
-static uint8_t *txTail;
-static uint8_t * volatile txHead;
-static bool volatile rxOverflowed;
-
-#define UART1_CONFIG_TX_BYTEQ_LENGTH (8+1)
-#define UART1_CONFIG_RX_BYTEQ_LENGTH (8+1)
-
-static uint8_t txQueue[UART1_CONFIG_TX_BYTEQ_LENGTH];
-static uint8_t rxQueue[UART1_CONFIG_RX_BYTEQ_LENGTH];
-
-//void (*UART1_TxDefaultInterruptHandler)(void);
-//void (*UART1_RxDefaultInterruptHandler)(void);
-void UART1_SetRxInterruptHandler(void (* interruptHandler)(void));
-void UART1_SetTxInterruptHandler(void (* interruptHandler)(void));
-void UART1_Write( uint8_t byte);
-
-
-void __attribute__ ( ( interrupt, no_auto_psv ) ) _U1TXInterrupt ( void );
-
 // Section: Data Type Definitions
 
 /**
