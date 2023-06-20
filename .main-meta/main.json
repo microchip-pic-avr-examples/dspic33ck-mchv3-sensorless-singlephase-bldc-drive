@@ -6,7 +6,7 @@
       "name":"com.microchip.mplabx.project.dspic33ck-mchv3-sensorless-singlephase-bldc-drive",
       "version":"1.0.0",
       "displayName":"dsPIC33CK Sensorless Single Phase BLDC Motor Control Solution",
-      "projectName":"spbldc_2kg.x & spbldc_fan.x",
+      "projectName":"spbldc_2kg",
       "shortDescription":"dsPIC33CK Sensorless Single Phase BLDC Motor Control Solution",
       "ide":{
          "name":"MPLABX",
@@ -43,7 +43,6 @@
       "keywords":[
          "Motor Control",
          "BLDC",
-         "Sensorless Control",
          "Motor Driver",
          "dsPIC"
       ]
