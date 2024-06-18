@@ -57,16 +57,16 @@ This document describes the hardware and software setup requirements and step-by
 <p style='text-align: justify;'>This section describes hardware setup required to drive the motor using <i>MCLV2 Development Board</i>.</p>
 
 <p style='text-align: justify;'>1. Mount the dsPIC33CK256MP508 External Op Amp Motor Control PIM (MA330041-1) on U9 and the External Op Amp Configuration Board on J14.</p>
-<p align="center" >
+<p align="left">
 <img  src="images/mclv2pim.png" width ="500">
 </p>
 
 <p style='text-align: justify;'>2. Connect the Phase windings of the motor to the J7 terminals labeled M1 and M2, which are located on the right side of the board.</p>
 
-<p align="center" >
+<p align="left" >
      <img  src="images/mclv2phasewindings.png" width ="400">
 
-<table class="center">
+<table>
   <tr>
     <th>Motor Wire</th>
     <th>MCLV2 Board</th>
@@ -85,7 +85,7 @@ This document describes the hardware and software setup requirements and step-by
 
 2. <p style='text-align: justify;'> To power the board, plug in the 24V DC power supply to connector J2. J6 connects the bus voltage to the supply but it may be disconnected to use other voltages ranging from 0-48V. Please see MCLV2 User's Guide (Section 2.3) for more information on the power supply options for the development board.</p>
 
-<p align="center">
+<p align="left">
 <img  src="images/mclv2power.png" width ="400"></p>
 <table>
   <tr>
@@ -104,9 +104,9 @@ This document describes the hardware and software setup requirements and step-by
 
 3.	<p style='text-align: justify;'>The MPLAB® PICkit™ 5 in-circuit debugger/programmer is used for programming or debugging the dsPIC33CK DSC. Connect the programmer on the J12 terminal of the board and to the user PC. Make sure the arrow indicated on the board is aligned with the arrow on the Pickit 5.
 
-<p align="center"> <img  src="images/mclv2programmer.png" width ="400"></p>
-<p align="center"> <img  src="images/mclv2pickitarrow.png" width ="400"></p>
-<table class="center">
+<p align="left"> <img  src="images/mclv2programmer.png" width ="400"></p>
+<p align="left"> <img  src="images/mclv2pickitarrow.png" width ="400"></p>
+<table>
   <tr>
     <th>Connection </th>
     <th>MCLV2</th>
@@ -120,10 +120,10 @@ This document describes the hardware and software setup requirements and step-by
 <br />
 
 4. X2CScope can be used for real time diagnostics via USB. Short the USB jumper pair in the JP4 and JP5 designator group. Back EMF monitoring can be enabled by shorting the Voltage jumper pair in JP1 and JP2. The current sensing for overcurrent detection can be enabled by shorting the Current jumper pair in JP3.
-<p align="center"><img  src="images/mclv2jumper.png" width ="400"></p>
-<p align="center"><img  src="images/mclv2x2cscope.png" width ="400"></p>
+<p align="left"><img  src="images/mclv2jumper.png" width ="400"></p>
+<p align="left"><img  src="images/mclv2x2cscope.png" width ="400"></p>
 
-<table class="center">
+<table>
   <tr>
     <th>Jumper Pairs </th>
     <th>Position </th>
@@ -180,10 +180,10 @@ Follow the step by step instructions below to setup and run the motor control de
 </p>
 
 1.  <p style='text-align: leftjustify;'>Start MPLAB X IDE and open <span style="font-family:Courier New; font-size:;"> (File > Open Project) </span> the project <span style="font-family:Courier New; font-size:;"><b>SensorlessSPBLDC_MCLV2.X</b></span></p>
-<p align="center"><img  src="images/idedeviceselection.png"></p>
+<p align="left"><img  src="images/idedeviceselection.png"></p>
 
 2.  <p style='text-align: leftjustify;'>Set the project <span style="font-family:Courier New; font-size:;"><b>SensorlessSPBLDC_MCLV2</b></span> as main project by right clicking on the project name and selecting 'Set as Main Project' in the drop down menu. The project <b>'SensorlessSPBLDC_MCLV2'</b> will then appear in boldface.</p>
-    <p align="center">
+    <p align="left">
      <img  src="images/ideprojectsetup.png"></p>
 
 
@@ -192,7 +192,7 @@ Follow the step by step instructions below to setup and run the motor control de
 - Enter the bus voltage used for the board. In this case, 24V DC is used.
 - Uncomment the defined <span style="font-family:Courier New; font-size:;">OVERCURRENT_DETECTION</span> to enable overcurrent detection. 
 
-<p align="center"><img  src="images/config.png"></p><p style='text-align: leftjustify;'>
+<p align="left"><img  src="images/config.png"></p><p style='text-align: leftjustify;'>
 
 4. Right click on the project <span style="font-family:Courier New; font-size:;">SensorlessSPBLDC_MCLV2</span> and select “Properties”  to open its Project Properties Dialog. In the category window: 
 
@@ -201,24 +201,24 @@ Follow the step by step instructions below to setup and run the motor control de
  - Select the Hardware Tool to be used for programming and debugging. 
        <p style='text-align: justify;'>     
  -   After selecting Hardware Tool and Compiler Toolchain, click button <b>Apply</b>
-        <p align="center">
+        <p align="left">
         <img  src="images/projectpropertiessettings.png"></p>
 
 5. <p style='text-align: justify;'> Ensure that the checkbox <b>'Load symbols when programming or building for production (slows process)'</b> is checked, which is under the 'Loading' category of the Project Properties window. This is used for X2Cscope. </p>        
         
-      <p align="center">
+      <p align="left">
       <img  src="images/loadvariables.PNG"></p>
 
 6. <p style='text-align: justify;'>To build the project and program the device dsPIC33CK256MP508, click <b>'Make and Program Device Main project'</b> on the toolbar.</p>
-    <p align="center">
+    <p align="left">
     <img  src="images/deviceprogramming.PNG"></p>
 
 7. <p style='text-align: justify;'>When the device is programmed successfully, run or stop the motor by pressing the push button S3. The LED D2 should light up to indicate the board is powered and D17 indicates the ON/OFF state of the drive.</p>
 
-<p align="center">
+<p align="left">
      <img  src="images/startButton.png" width ="400"></p>
 
-<table class="center">
+<table>
   <tr>
     <th>Push Button</th>
     <th>Description</th>
@@ -238,13 +238,13 @@ Follow the step by step instructions below to setup and run the motor control de
 </table>
 
 8. <p style='text-align: justify;'>When the drive is started, the motor runs at the default speed of 500RPM. The variable 'TargetSpeed' can be varied using X2Cscope which can be set up by going to <span style="font-family:Courier New; font-size:;"> Tools > Embedded > X2CScope</span>. For Connection Setup, follow as shown in the image below and select the appropriate Serial Port where the USB cable to J8 is connected. Click <span style="font-family:Courier New; font-size:;">Disconnected</span> and wait for the label to become <span style="font-family:Courier New; font-size:;">Connected</span>. </p>
-<p align="center"><img  src="images/x2cscopeopen.png" width ="500"></p>
-<p align="center"><img  src="images/x2cscopedisconnect.png" width ="500"></p>
+<p align="left"><img  src="images/x2cscopeopen.png" width ="500"></p>
+<p align="left"><img  src="images/x2cscopedisconnect.png" width ="500"></p>
 
 9. <p style='text-align: justify;'>Once connection is successful, proceed to the <span style="font-family:Courier New; font-size:;">Data Views</span> tab and select <span style="font-family:Courier New; font-size:;">Open Watch View</span>. This brings you a tab which can monitor and change the variables that X2CScope watches. Click the '+' and Select 'Target Speed' as shown below to change the speed of the motor from the user PC.</p>
 
-<p align="center"><img  src="images/x2cscopeconnect.png" width ="500"></p>
-<p align="center"><img  src="images/speedchange.png" width ="500"></p>
+<p align="left"><img  src="images/x2cscopeconnect.png" width ="500"></p>
+<p align="left"><img  src="images/speedchange.png" width ="500"></p>
 
 10. <p style='text-align: justify;'>	Press S3 push button again to stop the motor. </p>
 
@@ -258,17 +258,17 @@ is fully discharged. The system is completed discharged when the red
 D13 LED is off.
 
 1. <p style='text-align: justify;'>Mount the dsPIC33CK256MP508 External Op Amp Motor Control PIM (MA330041-1) on U11 and the External Op Amp Configuration Board on J4.</p>
-<p align="center" >
+<p align="left" >
 <img  src="images/mchv3pim.png" width ="600">
 </p>
 
 2. <p style='text-align: justify;'> Short the appropriate jumper pairs in J12 and J13 for Voltage Feedback and J14 for DC Bus Shunt Current Feedback. J11 is set to POT Voltage as default.</p>
 
-<p align="center" >
+<p align="left" >
 <img  src="images/mchv3jumper.png" width ="600">
 </p>
 
-<table class="center">
+<table>
   <tr>
     <th>Jumper Pairs </th>
     <th>Position </th>
@@ -298,7 +298,7 @@ D13 LED is off.
 
 3. <p style='text-align: justify;'>Connect the phase windings of the motor to the appropriate terminals of the MCHV3 development board, as shown below.</p>
 
-<p align="center">
+<p align="left">
      <img  src="images/mchv3phases.jpg" width ="600"></p>
 
 <table>
@@ -318,7 +318,7 @@ D13 LED is off.
 
 3. <p style='text-align: justify;'> On the MCHV3 Development Board, use the appropriate AC supply voltage (e.g. 250V AC source) and connect a power adapter to the input socket (J1 Terminal on the board). The table below is provided to summarize the supply and terminal as well. </p>
 
-<p align="center ">
+<p align="left">
 <img  src="images/mchv3power.jpg" width ="600"></p>
 
 <table>
@@ -338,7 +338,7 @@ D13 LED is off.
 
 4.	<p style='text-align: justify;'>The onboard programmer ‘PICkit™ On Board (PKoB4)’, is used for programming or debugging the dsPIC33CK DSC. As shown in the picture of the MCHV3 front panel, use the programmer/debug USB interface to program the board. Use the Connect a connector J13. To enable communication using X2CScope, use a similar cable and connect to J6.
 
-<p align="center"><img  src="images/mchv3front.jpg" width ="600"></p>
+<p align="left"><img  src="images/mchv3front.jpg" width ="600"></p>
 
 <table>
   <tr>
@@ -373,12 +373,12 @@ The Motor Control Demo application uses push button to start or stop the motor a
 Follow below instructions step by step to setup and run the motor control demo application:</p>
 
 1. <p style='text-align: leftjustify;'> Start MPLAB X IDE and open<span style="font-family:Courier New; font-size:;"> (File>Open Project)</span> the project <span style="font-family:Courier New; font-size:;">SensoredSPBLDC_MCHV3.X</span></p>
-    <p align="center">
+    <p align="left">
        <img  src="images/mchv3file.png"></p>
   
 
 2. <p style='text-align: leftjustify;'> Set the project <span style="font-family:Courier New; font-size:;">SensoredSPBLDC_MCHV3.X </span>as main project by right clicking on the project name and selecting 'Set as Main Project' as shown. The project <b>'SensoredSPBLDC_MCHV3'</b> will then appear in bold.</p>
-    <p align="center">
+    <p align="left">
      <img  src="images/mchv3setasmain.png"></p>
 
 3. <p style='text-align: leftjustify;'> Open <span style="font-family:Courier New; font-size:;">userparams.h </span>(under<span style="font-family:Courier New; font-size:;"> SensorlessSPBLDC_MCHV3 > headerfiles)</span> in the project <span style="font-family:Courier New; font-size:;">SensorlessSPBLDC_MCHV3</span> </p>
@@ -386,7 +386,7 @@ Follow below instructions step by step to setup and run the motor control demo a
 - Enter the bus voltage used for the board. In this case, 300V DC is used.
 - Uncomment the defined <span style="font-family:Courier New; font-size:;">OVERCURRENT_DETECTION</span> to enable overcurrent detection. 
 
-<p align="center"><img  src="images/mchv3userparam.png"></p>
+<p align="left"><img  src="images/mchv3userparam.png"></p>
 
 4. <p style='text-align: leftjustify;'>Right click on the project <span style="font-family:Courier New; font-size:;">SensoredSPBLDC_MCHV3.X</span>. In the category window: 
 
@@ -394,16 +394,16 @@ Follow below instructions step by step to setup and run the motor control demo a
  - Select the Hardware Tool to be used for programming and debugging.     
  - After selecting Hardware Tool and Compiler Toolchain, click button <b>Apply</b></p>
 
-<p align="center">
+<p align="left">
 <img  src="images/mchv3properties.png"></p>
 
 5. <p style='text-align: justify;'> Ensure that the checkbox <b>'Load symbols when programming or building for production (slows process)'</b> is checked, which is under the 'Loading' category of the Project Properties window.</p>        
         
-      <p align="center">
+      <p align="left">
       <img  src="images/mchv3loadvariables.png"></p>
 
 6. <p style='text-align: justify;'>To build the project (in this case Sensored_SPBLDC_MCHV3_LVMC.X) and program the device dsPIC33CK256MP508, click <b>'Make and Program Device Main project'</b> on the toolbar.</p>
-    <p align="center">
+    <p align="left">
     <img  src="images/deviceprogramming.PNG"></p>
 
 7. <p style='text-align: justify;'> When the device is programmed successfully, run or stop the motor by pressing the push button. The appropriate LEDs should turn on and the motor should start spinning smoothly in one direction in the range indicated by the potentiometer. Ensure that the motor is spinning smoothly without any vibration.</p>
@@ -415,13 +415,13 @@ Follow below instructions step by step to setup and run the motor control demo a
   </tr>
   <tr>
   <td>Push Button</td>
-    <td>PUSH BUTTON - ON/OFF<p align="center" >
+    <td>PUSH BUTTON - ON/OFF<p align="left" >
      <img  src="images/mchv3start.png" width ="700"></p></td>
   </tr>
 </table>
 
 8.  <p style='text-align: justify;'> The motor speed can be varied using the potentiometer of the respective development board as indicated below.</p>
-    <p align="center"><img  src="images/mchv3pot.png" width ="400"></p>
+    <p align="left"><img  src="images/mchv3pot.png" width ="400"></p>
     
 9. <p style='text-align: justify;'>	Press the PUSH BUTTON again to stop the motor.</p>
  
