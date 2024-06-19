@@ -116,7 +116,7 @@ void MotorStop(void);
 #define INITIALLY_SET_TO_ZERO                   0
 #define INITIAL_PWMTICKSLIMIT                   1500
 #define INITIAL_PWMTICKS                        1501
-#define INITIAL_TARGET_SPEED                    400 //Set in INIT for final Target Speed
+#define INITIAL_TARGET_SPEED                    500 //Set in INIT for final Target Speed
 #define INITIAL_STARTUP_SPEED                   100 //Set in Anti Motor Coasting before Forced Commutation
 #define FORCED_COMMUTATION_TARGET_TICKS         500 //Forced Commutation target PWMticks_level
 #define FORCED_COMMUTATION_INITIAL_DUTY_CYCLE   310
