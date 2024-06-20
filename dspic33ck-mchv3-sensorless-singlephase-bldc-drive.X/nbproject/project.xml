@@ -3,7 +3,7 @@
     <type>com.microchip.mplab.nbide.embedded.makeproject</type>
     <configuration>
         <data xmlns="http://www.netbeans.org/ns/make-project/1">
-            <name>SensorlessSPBLDC_MCHV3</name>
+            <name>dspic33ck-mchv3-sensorless-singlephase-bldc-drive</name>
             <creation-uuid>3bf84f0e-ed60-4a5b-9c93-9d2d162a2b82</creation-uuid>
             <make-project-type>0</make-project-type>
             <c-extensions>c</c-extensions>
@@ -18,7 +18,7 @@
             </sourceRootList>
             <confList>
                 <confElem>
-                    <name>default</name>
+                    <name>MCHV3</name>
                     <type>2</type>
                 </confElem>
             </confList>

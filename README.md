@@ -22,8 +22,8 @@ This document describes the hardware and software setup requirements and step-by
 
 ### <b>Motor Control Firmware </b>
 <b>Sensorless_SPBLDC.X</b> <br>
-- Navigate MPLAB Discover page of AN5419 and download the ZIP file for firmware *SensorlessSPBLDC_MCLV2.X* or *SensorlessSPBLDC_MCHV3.X*
-- Navigate GitHub page of AN5419 and go to <> Code and download the ZIP file for firmware *SensorlessSPBLDC_MCLV2.X* or *SensorlessSPBLDC_MCHV3.X*
+- Navigate MPLAB Discover page of AN5419 and download the ZIP file for firmware *dspic33ck-mclv2-sensorless-singlephase-bldc-drive.X* or *dspic33ck-mchv3-sensorless-singlephase-bldc-drive.X*
+- Navigate GitHub page of AN5419 and go to <> Code and download the ZIP file for firmware *dspic33ck-mclv2-sensorless-singlephase-bldc-drive.X* or *dspic33ck-mchv3-sensorless-singlephase-bldc-drive.X*
 
 ### <b>Software Tools Used for testing</b>
 
@@ -176,21 +176,21 @@ This document describes the hardware and software setup requirements and step-by
 Follow the step by step instructions below to setup and run the motor control demo application:
 </p>
 
-1.  <p style='text-align: leftjustify;'>Start MPLAB X IDE and open <span style="font-family:Courier New; font-size:;"> (File > Open Project) </span> the project <span style="font-family:Courier New; font-size:;"><b>SensorlessSPBLDC_MCLV2.X</b></span></p>
+1.  <p style='text-align: leftjustify;'>Start MPLAB X IDE and open <span style="font-family:Courier New; font-size:;"> (File > Open Project) </span> the project <span style="font-family:Courier New; font-size:;"><b>dspic33ck-mclv2-sensorless-singlephase-bldc-drive.X</b></span></p>
     <p align="left"><img  src="images/mclv2idedeviceselection.png" width="500"></p>
 
-2.  <p style='text-align: leftjustify;'>Set the project <span style="font-family:Courier New; font-size:;"><b>SensorlessSPBLDC_MCLV2</b></span> as main project by right clicking on the project name and selecting 'Set as Main Project' in the drop down menu. The project <b>'SensorlessSPBLDC_MCLV2'</b> will then appear in boldface.</p>
+2.  <p style='text-align: leftjustify;'>Set the project <span style="font-family:Courier New; font-size:;"><b>dspic33ck-mclv2-sensorless-singlephase-bldc-drive.X</b></span> as main project by right clicking on the project name and selecting 'Set as Main Project' in the drop down menu. The project <b>'dspic33ck-mclv2-sensorless-singlephase-bldc-drive.X'</b> will then appear in boldface.</p>
     <p align="left"><img  src="images/mclv2ideprojectsetup.png" width="500"></p>
 
 
-3. <p style='text-align: leftjustify;'> Open <span style="font-family:Courier New; font-size:;">userparams.h </span>(under<span style="font-family:Courier New; font-size:;"> SensorlessSPBLDC_MCLV2 > headerfiles)</span> in the project <span style="font-family:Courier New; font-size:;"><b>SensorlessSPBLDC_MCLV2</b></span> </p>
+3. <p style='text-align: leftjustify;'> Open <span style="font-family:Courier New; font-size:;">userparams.h </span>(under<span style="font-family:Courier New; font-size:;"> dspic33ck-mclv2-sensorless-singlephase-bldc-drive.X > headerfiles)</span> in the project <span style="font-family:Courier New; font-size:;"><b>dspic33ck-mclv2-sensorless-singlephase-bldc-drive.X</b></span> </p>
      <p style='text-align: leftjustify;'>
 - Enter the bus voltage used for the board. In this case, 24V DC is used.
 - Uncomment the defined <span style="font-family:Courier New; font-size:;">OVERCURRENT_DETECTION</span> to enable overcurrent detection. 
 
     <p align="left"><img  src="images/mclv2config.png" width="500"></p>
 
-4. <p style='text-align: leftjustify;'>Right click on the project <span style="font-family:Courier New; font-size:;"><b>SensorlessSPBLDC_MCLV2</b></span> and select 'Properties'  to open the Project Properties Dialog. In the category window: 
+4. <p style='text-align: leftjustify;'>Right click on the project <span style="font-family:Courier New; font-size:;"><b>dspic33ck-mclv2-sensorless-singlephase-bldc-drive.X</b></span> and select 'Properties'  to open the Project Properties Dialog. In the category window: 
 
  - Select the dsPIC33CK DFP Pack and Compiler Toolchain from the available list of compilers. Please ensure MPLAB® XC16 Compiler supports the device dsPIC33CK256MP508. In this case, "v1.12.354" and “XC16(v2.10)” are selected.
       <p style='text-align: justify;'>
@@ -376,7 +376,7 @@ Follow below instructions step by step to setup and run the motor control demo a
     <p align="left">
      <img  src="images/mchv3setasmain.png" width ="500"></p>
 
-3. <p style='text-align: leftjustify;'> Open <span style="font-family:Courier New; font-size:;">userparams.h </span>(under<span style="font-family:Courier New; font-size:;"> SensorlessSPBLDC_MCHV3 > headerfiles)</span> in the project <span style="font-family:Courier New; font-size:;"><b>SensorlessSPBLDC_MCHV3</b></span> </p>
+3. <p style='text-align: leftjustify;'> Open <span style="font-family:Courier New; font-size:;">userparams.h </span>(under<span style="font-family:Courier New; font-size:;"> dspic33ck-mchv3-sensorless-singlephase-bldc-drive.X > headerfiles)</span> in the project <span style="font-family:Courier New; font-size:;"><b>dspic33ck-mchv3-sensorless-singlephase-bldc-drive.X</b></span> </p>
      <p style='text-align: leftjustify;'>
 - Enter the bus voltage used for the board. In this case, 300V DC is used.
 - Uncomment the defined <span style="font-family:Courier New; font-size:;">OVERCURRENT_DETECTION_ENABLE</span> to enable overcurrent detection. 
@@ -398,11 +398,10 @@ Follow below instructions step by step to setup and run the motor control demo a
       <img  src="images/mchv3loadvariables.png" width ="600"></p>
 
 6. <p style='text-align: justify;'>To build the project (in this case Sensored_SPBLDC_MCHV3_LVMC.X) and program the device dsPIC33CK256MP508, click <b>'Make and Program Device Main project'</b> on the toolbar.</p>
-    <p align="left">
-    <img  src="images/mchv3deviceprogramming.PNG" width ="600"></p>
+    <p align="left"><img  src="images/mchv3program.PNG" width="600"></p>
 
 7. <p style='text-align: justify;'> When the device is programmed successfully, start or stop the motor drive by pressing the push button.</p>
-    <p align="left" ><img  src="images/mchv3start.png" width ="600"></p>
+    <p align="left"><img  src="images/mchv3start.png" width ="600"></p>
 <table>
   <tr>
     <th></th>
