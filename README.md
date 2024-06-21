@@ -21,7 +21,8 @@ This document describes the hardware and software setup requirements and step-by
 ## <b>3. REQUIREMENTS </b>
 
 ### <b>Motor Control Firmware </b>
-<b>Sensorless_SPBLDC.X</b> <br>
+<b>dspic33ck-mchv3-sensorless-singlephase-bldc-drive.X</b> <br>
+<b>dspic33ck-mclv2-sensorless-singlephase-bldc-drive.X</b> <br>
 - Navigate MPLAB Discover page of AN5419 and download the ZIP file for firmware *dspic33ck-mclv2-sensorless-singlephase-bldc-drive.X* or *dspic33ck-mchv3-sensorless-singlephase-bldc-drive.X*
 - Navigate GitHub page of AN5419 and go to <> Code and download the ZIP file for firmware *dspic33ck-mclv2-sensorless-singlephase-bldc-drive.X* or *dspic33ck-mchv3-sensorless-singlephase-bldc-drive.X*
 
@@ -41,7 +42,7 @@ This document describes the hardware and software setup requirements and step-by
   </tr>
   <tr>
     <td>DSPICDEM™ MCHV3 Development Board (DM3300233)</td>
-    <td>250V AC</td>
+    <td>220V AC</td>
   </tr>
     <tr>
     <td>DSPICDEM™ MCLV2 Development Board (DM330021 - 2)</td>
@@ -311,7 +312,7 @@ D13 LED is off.
   </tr>
 </table>
 
-4. <p style='text-align: justify;'> On the MCHV3 Development Board, use the appropriate AC supply voltage (e.g. 250V AC source) and connect a power adapter to the input socket (J1 Terminal on the board). The table below is provided to summarize the supply and terminal as well. </p>
+4. <p style='text-align: justify;'> On the MCHV3 Development Board, use the appropriate AC supply voltage (e.g. 220V AC source) and connect a power adapter to the input socket (J1 Terminal on the board). The table below is provided to summarize the supply and terminal as well. </p>
 
     <p align="left">
     <img  src="images/mchv3power.jpg" width ="600"></p>
@@ -323,7 +324,7 @@ D13 LED is off.
   </tr>
   <tr>
     <td><b>Supply</b></td>
-    <td>250V</td>
+    <td>220V</td>
   </tr>
     <tr>
     <td><b>Terminal</b></td>
