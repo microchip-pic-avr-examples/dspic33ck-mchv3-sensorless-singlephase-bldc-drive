@@ -57,7 +57,7 @@
     </logicalFolder>
     <logicalFolder displayName="Important Files" name="ExternalFiles" projectFiles="false">
       <itemPath>Makefile</itemPath>
-      <itemPath>SensorlessSPBLDC_MCHV3.mc3</itemPath>
+      <itemPath>dspic33ck-mchv3-sensorless-singlephase-bldc-drive.mc3</itemPath>
     </logicalFolder>
   </logicalFolder>
   <sourceRootList>
@@ -66,7 +66,7 @@
   </sourceRootList>
   <projectmakefile>Makefile</projectmakefile>
   <confs>
-    <conf name="default" type="2">
+    <conf name="MCHV3" type="2">
       <toolsSet>
         <developmentServer>localhost</developmentServer>
         <targetDevice>dsPIC33CK256MP508</targetDevice>
