@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://www.netbeans.org/ns/project/1">
+    <type>com.microchip.mplab.nbide.embedded.makeproject</type>
+    <configuration>
+        <data xmlns="http://www.netbeans.org/ns/make-project/1">
+            <name>dspic33ck-mchv3-sensorless-singlephase-bldc-drive</name>
+            <creation-uuid>3bf84f0e-ed60-4a5b-9c93-9d2d162a2b82</creation-uuid>
+            <make-project-type>0</make-project-type>
+            <c-extensions>c</c-extensions>
+            <cpp-extensions/>
+            <header-extensions>h</header-extensions>
+            <asminc-extensions/>
+            <sourceEncoding>ISO-8859-1</sourceEncoding>
+            <make-dep-projects/>
+            <sourceRootList>
+                <sourceRootElem>.</sourceRootElem>
+                <sourceRootElem>C:/Users/A67805/OneDrive - Microchip Technology Inc/Documents/_KULTHORN (AUG 2023)/May14/ProtoBoard_1.X</sourceRootElem>
+            </sourceRootList>
+            <confList>
+                <confElem>
+                    <name>MCHV3</name>
+                    <type>2</type>
+                </confElem>
+            </confList>
+            <formatting>
+                <project-formatting-style>false</project-formatting-style>
+            </formatting>
+        </data>
+    </configuration>
+</project>

@@ -1,0 +1,51 @@
+{
+   "metaDataVersion":"1.0.0",
+   "category":"com.microchip.ide.project",
+   "content":{
+      "metaDataVersion":"1.3.0",
+      "name":"com.microchip.mplabx.project.dspic33ck-mchv3-sensorless-singlephase-bldc-drive",
+      "version":"1.0.0",
+      "displayName":"AN5419 Sensorless Single Phase BLDC Motor Control uing dsPIC33CK",
+      "projectName":"dspic33ck-mchv3-sensorless-singlephase-bldc-drive",
+      "shortDescription":"This drive is created to control the Single Phase BLDC Motor Control with fan blade in sensorless fashion.",
+      "ide":{
+         "name":"MPLABX",
+         "semverRange":">=6.15.0"
+      },
+      "compiler":{
+         "name":"XC16",
+         "semverRange":"^2.10.0"
+      },
+      "dfp":{
+         "name":"dsPIC33CK-MP_DFP",
+         "semverRange":">=1.12.354"
+      },
+	  "configurator": {
+         "name": "MCC",
+         "semverRange": ">=5.5.7"
+      },
+      "device":{
+         "metaDataVersion":"1.0.0",
+         "category":"com.microchip.portal.contentRef",
+         "content":{
+            "metaDataVersion":"1.0.0",
+            "category":"com.microchip.device",
+            "name":"dsPIC33CK256MP508",
+            "versionRange":"*"
+         }
+      },
+     "peripherals":[
+         "GPIO",
+         "ADC",
+         "PWM",
+         "SCCP",
+         "TMR"
+      ],
+      "keywords":[
+         "Motor Control",
+         "BLDC",
+         "Motor Driver",
+         "dsPIC"
+      ]
+   }
+}
