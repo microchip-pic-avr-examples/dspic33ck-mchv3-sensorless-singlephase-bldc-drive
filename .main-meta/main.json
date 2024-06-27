@@ -6,7 +6,7 @@
       "name":"com.microchip.mplabx.project.dspic33ck-mchv3-sensorless-singlephase-bldc-drive",
       "version":"1.0.0",
       "displayName":"AN5419 Sensorless Single Phase BLDC Motor Control uing dsPIC33CK",
-      "projectName":"SensorlessSPBLDC_MCLV2_MCHV3",
+      "projectName":"dspic33ck-mchv3-sensorless-singlephase-bldc-drive",
       "shortDescription":"This drive is created to control the Single Phase BLDC Motor Control with fan blade in sensorless fashion.",
       "ide":{
          "name":"MPLABX",
